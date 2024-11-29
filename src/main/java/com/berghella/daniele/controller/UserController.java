@@ -23,7 +23,7 @@ public class UserController {
     public static Handler createUser = ctx -> {
 
         System.out.println(ctx.body());
-        JSONObject jsonObject;
+//        JSONObject jsonObject;
 //        User user = new User();
 //        try {
 //            jsonObject = new JSONObject(ctx.body());
