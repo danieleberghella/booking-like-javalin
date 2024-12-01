@@ -1,5 +1,6 @@
 package com.berghella.daniele.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -11,5 +12,6 @@ public class User {
     private String name;
     private String surname;
     private String email;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 }

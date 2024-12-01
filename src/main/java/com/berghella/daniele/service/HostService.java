@@ -27,6 +27,15 @@ public class HostService {
         return hostDAO.findAll();
     }
 
+    public Host updateHost(Host hostUpdate, UUID oldHostId) {
+        for (Host host:hostDAO.findAll()){
+            if (host.getId().equals(oldHostId)) {
+                return hostDAO.update(hostUpdate, oldHostId);
+            }
+        }
+        return null;
+    }
+
     public void deleteHost(UUID id) {
         hostDAO.delete(id);
     }

@@ -1,6 +1,7 @@
 package com.berghella.daniele.dao;
 
 import com.berghella.daniele.model.Feedback;
+import com.berghella.daniele.model.User;
 import com.berghella.daniele.utility.DummyDatabase;
 
 import java.util.*;
@@ -11,6 +12,10 @@ public class FeedbackDAO implements GenericDAO<Feedback> {
     @Override
     public void save(Feedback feedback) {
         feedbacks.put(feedback.getId(), feedback);
+    }
+
+    public Feedback update(Feedback updatedFeedback, UUID oldFeedbackId){
+        return feedbacks.replace(oldFeedbackId, updatedFeedback);
     }
 
     @Override

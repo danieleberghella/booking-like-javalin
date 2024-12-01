@@ -2,6 +2,7 @@ package com.berghella.daniele.service;
 
 import com.berghella.daniele.dao.BookingDAO;
 import com.berghella.daniele.model.Booking;
+import com.berghella.daniele.model.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,15 @@ public class BookingService {
 
     public List<Booking> getAllBookings() {
         return bookingDAO.findAll();
+    }
+
+    public Booking updateBooking(Booking bookingUpdate, UUID oldBookingId) {
+        for (Booking booking:bookingDAO.findAll()){
+            if (booking.getId().equals(oldBookingId)) {
+                return bookingDAO.update(bookingUpdate, oldBookingId);
+            }
+        }
+        return null;
     }
 
     public void deleteBooking(UUID id) {

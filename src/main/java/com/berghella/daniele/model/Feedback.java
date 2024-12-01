@@ -10,5 +10,5 @@ public class Feedback {
     private String title;
     private String text;
     private int score;
-    private Booking booking; // riferimento a Booking
+    private Booking booking;
 }

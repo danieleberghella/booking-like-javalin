@@ -26,10 +26,10 @@ public class UserService {
         return userDAO.findAll();
     }
 
-    public User updateUser(User userJavalin, UUID oldUserId) {
+    public User updateUser(User userUpdate, UUID oldUserId) {
         for (User user:userDAO.findAll()){
             if (user.getId().equals(oldUserId)) {
-                return userDAO.update(userJavalin, oldUserId);
+                return userDAO.update(userUpdate, oldUserId);
             }
         }
         return null;

@@ -2,6 +2,7 @@ package com.berghella.daniele.service;
 
 import com.berghella.daniele.dao.FeedbackDAO;
 import com.berghella.daniele.model.Feedback;
+import com.berghella.daniele.model.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,15 @@ public class FeedbackService {
 
     public List<Feedback> getAllFeedbacks() {
         return feedbackDAO.findAll();
+    }
+
+    public Feedback updateFeedback(Feedback feedbackUpdate, UUID oldFeedbackId) {
+        for (Feedback feedback:feedbackDAO.findAll()){
+            if (feedback.getId().equals(oldFeedbackId)) {
+                return feedbackDAO.update(feedbackUpdate, oldFeedbackId);
+            }
+        }
+        return null;
     }
 
     public void deleteFeedback(UUID id) {

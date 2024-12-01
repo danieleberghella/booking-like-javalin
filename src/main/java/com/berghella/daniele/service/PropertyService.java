@@ -26,6 +26,15 @@ public class PropertyService {
         return propertyDAO.findAll();
     }
 
+    public Property updateProperty(Property propertyUpdate, UUID oldPropertyId) {
+        for (Property property:propertyDAO.findAll()){
+            if (property.getId().equals(oldPropertyId)) {
+                return propertyDAO.update(propertyUpdate, oldPropertyId);
+            }
+        }
+        return null;
+    }
+
     public void deleteProperty(UUID id) {
         propertyDAO.delete(id);
     }

@@ -14,13 +14,22 @@ public class HostDAO implements GenericDAO<Host> {
         users.put(host.getId(), host);
     }
 
+    public Host update(Host hostUpdate, UUID oldHostId){
+        if (hostUpdate instanceof Host) {
+            return (Host) users.replace(oldHostId, hostUpdate);
+        } else {
+            throw new IllegalArgumentException("Not a Host ID.");
+        }
+
+    }
+
     @Override
     public void delete(UUID id) {
         User user = users.get(id);
         if (user instanceof Host) {
             users.remove(id);
         } else {
-            throw new IllegalArgumentException("ID non associato a un Host.");
+            throw new IllegalArgumentException("Not a Host ID.");
         }
     }
 
