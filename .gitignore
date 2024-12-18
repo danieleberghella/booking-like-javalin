@@ -39,4 +39,4 @@ build/
 .DS_Store
 
 ### Excalidraw Files ###
-.excalidraw
+*.excalidraw
