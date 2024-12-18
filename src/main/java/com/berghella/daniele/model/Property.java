@@ -9,6 +9,7 @@ import java.util.UUID;
 @Data
 public class Property {
     private UUID id;
+    private String name;
     private int rooms;
     private int beds;
     private String address;

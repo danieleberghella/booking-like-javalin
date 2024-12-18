@@ -6,6 +6,7 @@ import com.berghella.daniele.controller.PropertyController;
 import com.berghella.daniele.controller.UserController;
 import com.berghella.daniele.controller.HostController;
 import com.berghella.daniele.controller.FeedbackController;
+import com.berghella.daniele.service.UserService;
 import com.berghella.daniele.utility.CustomJsonMapper;
 import io.javalin.Javalin;
 
@@ -14,16 +15,29 @@ public class Main {
 
 //        Javalin app = Javalin.create(config -> config.jsonMapper(new CustomJsonMapper())).start(3050);
 
-        DataLoader dataLoader = new DataLoader();
-        dataLoader.loadData();
+//        DataLoader dataLoader = new DataLoader();
+//        dataLoader.loadData();
 
-        Javalin app = Javalin.create().start(3050);
+        Javalin app = Javalin.create(config -> {
+            config.bundledPlugins.enableCors(cors -> {
+                cors.addRule(it -> {
+//                    it.allowHost("example.com", "javalin.io");
+                    it.anyHost();
+                });
+            });
+        }).start(3050);
+
+        // Inizializza i servizi e i controller
+        UserService userService = new UserService();
+        UserController userController = new UserController(userService);
+//        AuthController authController = new AuthController();
 
         // User routing
-        app.get("/users", UserController.getAllUsers);
-        app.post("/users", UserController.createUser);
-        app.put("/users/{id}", UserController.updateUser);
-        app.delete("/users", UserController.deleteUser);
+        userController.registerRoutes(app);
+//        authController.registerRoutes(app);
+
+
+
 
         // Host routing
         app.get("/hosts", HostController.getAllHosts);
@@ -36,6 +50,7 @@ public class Main {
         app.post("/properties", PropertyController.createProperty);
         app.put("/properties/{id}", PropertyController.updateProperty);
         app.delete("/properties", PropertyController.deleteProperty);
+        app.get("/properties/3-most-popular", PropertyController.get3MostPopularPropertiesLastMonth);
 
         // Booking routing
         app.get("/bookings", BookingController.getAllBookings);

@@ -83,6 +83,34 @@ public class PropertyService {
         return mostPopularProperty;
     }
 
+    public List<Property> get3MostPopularPropertiesLastMonth() {
+        List<Booking> allBookings = bookingDAO.findAll();
+        Map<Property, Integer> propertyBookingCount = new HashMap<>();
+        LocalDate oneMonthAgo = LocalDate.now().minusMonths(1);
+
+        for (Booking booking : allBookings) {
+            if (!booking.getStartDate().isBefore(oneMonthAgo)) {
+                Property property = booking.getProperty();
+                if (!propertyBookingCount.containsKey(property)) {
+                    propertyBookingCount.put(property, 0);
+                }
+                propertyBookingCount.put(property, propertyBookingCount.get(property) + 1);
+            }
+        }
+
+        // TODO: update feature with 3 best results
+        List<Property> mostPopularProperties = new ArrayList<>();
+        int maxCount = 0;
+        for (Map.Entry<Property, Integer> entry : propertyBookingCount.entrySet()) {
+            if (entry.getValue() > maxCount) {
+                maxCount = entry.getValue();
+                mostPopularProperties.add(entry.getKey());
+            }
+        }
+
+        return propertyDAO.findAll();
+    }
+
     public double getAverageBedsInProperties() {
         List<Property> allProperties = propertyDAO.findAll();
         if (allProperties.isEmpty()) {

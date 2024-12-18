@@ -37,6 +37,7 @@ public class DataLoader {
         // Creazione di una proprietà associata all'Host
         Property property = new Property();
         property.setId(UUID.randomUUID());
+        property.setName("House Matilda");
         property.setAddress("123 Main Street");
         property.setRooms(3);
         property.setBeds(5);

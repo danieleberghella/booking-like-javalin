@@ -18,21 +18,16 @@ public class UserService {
         userDAO.save(user);
     }
 
-    public Optional<User> getUserById(UUID id) {
-        return userDAO.findById(id);
-    }
-
     public List<User> getAllUsers() {
         return userDAO.findAll();
     }
 
+    public Optional<User> getUserById(UUID id) {
+        return userDAO.findById(id);
+    }
+
     public User updateUser(User userUpdate, UUID oldUserId) {
-        for (User user:userDAO.findAll()){
-            if (user.getId().equals(oldUserId)) {
-                return userDAO.update(userUpdate, oldUserId);
-            }
-        }
-        return null;
+        return userDAO.update(userUpdate, oldUserId);
     }
 
     public void deleteUser(UUID id) {

@@ -17,6 +17,11 @@ public class PropertyController {
         ctx.json(propertyService.getAllProperties());
     };
 
+    // http://localhost:3050/properties/3-most-popular (get)
+    public static Handler get3MostPopularPropertiesLastMonth = ctx -> {
+        ctx.json(propertyService.get3MostPopularPropertiesLastMonth());
+    };
+
     // http://localhost:3050/properties (post)
     public static Handler createProperty = ctx -> {
         Property property = ctx.bodyAsClass(Property.class);
